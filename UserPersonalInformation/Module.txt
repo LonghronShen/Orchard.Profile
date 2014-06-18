@@ -1,0 +1,11 @@
+Name: User's Personal Information
+AntiForgery: enabled
+Author: Jake Kapp
+Website: http://jkapp.com
+Version: 1.0
+OrchardVersion: 1.0
+Description: Add User Personal Profile Information eg. First, Middle, Last,Nick, Display names', and Date Of Birth.
+Features:
+    UserPersonalInformation:
+        Description: Description for feature UserPersonalInformation.
+		Category: User Profile Data

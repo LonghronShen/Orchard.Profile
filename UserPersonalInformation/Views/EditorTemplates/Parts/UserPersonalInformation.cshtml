@@ -1,0 +1,93 @@
+﻿@model UserPersonalInformation.Models.UserPersonalInformationPart
+          
+<h1>@Html.TitleForPage(T("Personal Information").ToString())</h1><hr />  
+     <div class="editor-label">
+    @Html.LabelFor(model => model.Gender, T("Gender"))
+  </div>
+  <div class="editor-field">
+    <select name="@Html.FieldNameFor(m => m.Gender)" size="1">
+	@foreach (var item in Enum.GetValues(typeof(UserPersonalInformation.Models.Gender)))
+    {
+        var name = Enum.GetName(typeof(UserPersonalInformation.Models.Gender), item);
+		<option value="@item" @if(Convert.ToInt32(Model.Gender) == Convert.ToInt32(item)) { <text>selected="selected"</text> }>@T(name)</option>
+	}
+	</select>
+    @Html.ValidationMessageFor(model => model.Gender)
+  </div>
+    <div class="editor-label">
+        @Html.LabelFor(m => m.FirstName, T("First Name"))
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(m => m.FirstName)
+        @Html.ValidationMessageFor(m => m.FirstName)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(m => m.MiddleName, T("Middle Name"))
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(m => m.MiddleName)
+        @Html.ValidationMessageFor(m => m.MiddleName)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(m => m.LastName, T("Last Name"))
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(m => m.LastName)
+        @Html.ValidationMessageFor(m => m.LastName)
+    </div>
+    @*<div class="editor-label">
+        @Html.LabelFor(m => m.DateOfBirth, T("Date of Birth"))
+    </div>
+    <div class="editor-field">
+       @* @Html.TextBoxFor(m => m.DateOfBirth.ToShortDateString())
+        @Html.ValidationMessageFor(m => m.DateOfBirth)
+    </div>*@
+    <div class="editor-label">
+        @Html.LabelFor(m => m.NickName, T("Nick Name"))
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(m => m.NickName)
+        @Html.ValidationMessageFor(m => m.NickName)
+    </div>
+    <div class="editor-label">
+        @Html.LabelFor(m => m.DisplayName, T("Display Name"))
+    </div>
+    <div class="editor-field">
+        @Html.TextBoxFor(m => m.DisplayName)
+        @Html.ValidationMessageFor(m => m.DisplayName)
+    </div>
+     @using (Script.Foot())
+     {
+        
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#FirstName').keyup(function () {
+                    var fstInit = $('#FirstName').val().substring(0, 1);
+                    var lst = $('#LastName').val();
+                    $('#UserName').val(fstInit.toLowerCase() + lst.toLowerCase());
+                });
+                $('#LastName').keyup(function () {
+                    var fstInit = $('#FirstName').val().substring(0, 1);
+                    var lst = $('#LastName').val();
+                    var nick = $('#NickName').val();
+                    $('#UserName').val(fstInit.toLowerCase() + lst.toLowerCase());
+                    $('#DisplayName').val(lst + ", " + nick);
+                });
+                $('#NickName').keyup(function () {
+                    var nick = $('#NickName').val();
+                    var lst = $('#LastName').val();
+                    $('#DisplayName').val(lst + ", " + nick);
+                });
+//                $('#check').click(function () {
+                //                    $.getJSON("../VerifyUserUnicity/?userName=" + $('#UserName').val() + "&, null, function (data) {
+//                        if (data) {
+//                            $('#lblAvailable').html($('#Username').val() + " is available.").addClass("green");
+//                        }
+//                        else {
+//                            $('#lblAvailable').html($('#Username').val() + " is not available.").addClass("red");
+//                        }
+//                    });
+//                });
+            });
+        </script>
+     }
